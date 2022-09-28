@@ -3,7 +3,7 @@ import Sb_Side_Nav_Item from "../Sb_Side_Nav_Item/Sb_Side_Nav_Item";
 import { NavData } from "./Sb_Side_Nav_Data";
 import "./Sb_Side_Nav.css";
 import Sb_User_Profile from "./Sb_User_Profile";
-import Logo from "../../assets/officeLogoWhite.svg";
+import Logo from "../../assets/adminLogoWhite.svg";
 import { Col, Container } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 

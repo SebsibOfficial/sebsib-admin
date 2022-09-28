@@ -8,7 +8,7 @@ import {
 import Add_Modify_Member from "../Add_Member/Add_Member";
 import Create_Project from "../Create_Project/Create_Project";
 import Create_Survey from "../Create_Survey/Create_Survey";
-import Dashboard, { Dashboard_Landing } from "../Dashboard/Dashboard";
+import Dashboard from "../Dashboard/Dashboard";
 import Login from "../Login/Login";
 import Members, { Members_Landing } from "../Members/Members";
 import Projects, { Projects_Landing } from "../Projects/Projects";
@@ -28,6 +28,9 @@ import { useEffect, useState } from "react";
 import CryptoJS from "crypto-es";
 import { useTranslation } from "react-i18next";
 import NotFound from "../404/404";
+import Accounts from "../Accounts/Accounts";
+import Admins from "../Admins/Admins";
+import View from "../View/View";
 
 function App() {
   const [token, setAuthToken] = useLocalStorageState<string>("token");
@@ -39,7 +42,7 @@ function App() {
   }, [t]);
 
   const header = JSON.stringify({
-    PLATFORM_ID: "SEBSIB_OFFICE_1",
+    PLATFORM_ID: "SEBSIB_ADMIN_3",
     JWT: token as string,
   });
 
@@ -77,42 +80,13 @@ function App() {
               }
             >
               {/* <Route index element={<div>Hello<br></br><Link to={toWhere()} state={true}>Login</Link></div>}/> */}
-              <Route index element={<Landing />} />
-              <Route path="pricing" element={<Pricing />}></Route>
-              <Route path="register" element={<Register />}></Route>
-              <Route path="contact" element={<div>Contact</div>}></Route>
-              <Route
-                path="dashboard"
-                element={
-                  <NotifProvider>
-                    <Dashboard />
-                  </NotifProvider>
-                }
-              >
-                <Route index element={<Dashboard_Landing />}></Route>
-                <Route path="projects" element={<Projects />}>
-                  <Route index element={<Projects_Landing />} />
-                  <Route path="create-project" element={<Create_Project />} />
-                  <Route
-                    path="create-survey/:pid"
-                    element={<Create_Survey />}
-                  />
-                  <Route path="view-survey/:sid" element={<View_Survey />} />
-                </Route>
-                <Route path="members" element={<Members />}>
-                  <Route index element={<Members_Landing />} />
-                  <Route
-                    path="add-member"
-                    element={<Add_Modify_Member pageType="ADD" />}
-                  />
-                  <Route
-                    path="edit-member/:id"
-                    element={<Add_Modify_Member pageType="EDIT" />}
-                  />
-                </Route>
-                <Route path="settings" element={<Settings />}></Route>
+              <Route index element={<Login />} />
+              <Route path="dashboard" element={<NotifProvider> <Dashboard /> </NotifProvider>}>
+                <Route path="accounts" element={<Accounts/>}></Route>
+                <Route path="admins" element={<Admins/>}></Route>
+                <Route path="requests" element={<Admins/>}></Route>
+                <Route path="view" element={<View/>}></Route>
               </Route>
-              <Route path="login" element={<Login />} />
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
