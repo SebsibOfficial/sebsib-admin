@@ -1,0 +1,55 @@
+.parent-screen {
+  width: -webkit-fill-available;
+  background-color: var(--lightGrey);
+}
+.btn:focus {
+  box-shadow: none !important;
+}
+.loader {
+  width: 6px;
+  height: 38px;
+  display: block;
+  margin: auto;
+  left: -20px;
+  position: relative;
+  border-radius: 4px;
+  box-sizing: border-box;
+  animation: animloader 500ms linear infinite alternate;
+}
+
+@keyframes animloader {
+  0% {
+    box-shadow: 20px 0 #505075, 40px 0 white, 60px 0 white;
+  }
+  50% {
+    box-shadow: 20px 0 white, 40px 0 #505075, 60px 0 white;
+  }
+  100% {
+    box-shadow: 20px 0 white, 40px 0 white, 60px 0 #505075;
+  }
+}
+
+.mini-loader {
+  width: 4px;
+  height: 15px;
+  display: block;
+  margin: auto;
+  left: -20px;
+  position: relative;
+  border-radius: 4px;
+  box-sizing: border-box;
+  animation: mini-animloader 300ms linear infinite alternate;
+}
+
+@keyframes mini-animloader {
+  0% {
+    box-shadow: 20px 0 #505075, 30px 0 white, 40px 0 white;
+  }
+  50% {
+    box-shadow: 20px 0 white, 30px 0 #505075, 40px 0 white;
+  }
+  100% {
+    box-shadow: 20px 0 white, 30px 0 white, 40px 0 #505075;
+  }
+}
+    

@@ -1,0 +1,31 @@
+.navItemContainer {
+  border-radius: 3px;
+  color: var(--lightGrey);
+  cursor: pointer;
+  margin-left: 0 !important;
+  width: 85% !important;
+  margin: 0.5rem 0 !important;
+}
+
+.iconCol {
+  display: flex;
+  align-items: baseline;
+}
+
+.icon {
+  font-size: 20px;
+  vertical-align: bottom;
+}
+
+.text{
+  padding-bottom: 10px;
+}
+
+.sb-bg-dark {
+  background-color: #353535 !important;
+}
+
+.bg-transparent:hover {
+  background-color: #353535 !important;
+  transition: all 200ms ease;
+}
