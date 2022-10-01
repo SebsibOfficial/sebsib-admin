@@ -1,0 +1,23 @@
+.request_card {
+    background-color: white;
+    padding: 1em;
+    min-width: 400px;
+    border-radius: 10px;
+    font-family: 'HelveticaNeue';
+    height: fit-content;
+    margin: 0 1em 1em 0em;
+}
+.request_card span {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    content: '';
+    display: inline-block;
+    margin-right: 0.5em;
+}
+.request_card button {
+    margin-right: 1em;
+}
+.request_card p {
+    margin: 0;
+}

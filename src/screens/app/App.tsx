@@ -8,7 +8,7 @@ import {
 import Add_Modify_Member from "../Add_Member/Add_Member";
 import Create_Project from "../Create_Project/Create_Project";
 import Create_Survey from "../Create_Survey/Create_Survey";
-import Dashboard from "../Dashboard/Dashboard";
+import {Dashboard, Dashboard_Main} from "../Dashboard/Dashboard";
 import Login from "../Login/Login";
 import Members, { Members_Landing } from "../Members/Members";
 import Projects, { Projects_Landing } from "../Projects/Projects";
@@ -82,6 +82,7 @@ function App() {
               {/* <Route index element={<div>Hello<br></br><Link to={toWhere()} state={true}>Login</Link></div>}/> */}
               <Route index element={<Login />} />
               <Route path="dashboard" element={<NotifProvider> <Dashboard /> </NotifProvider>}>
+                <Route index element={<Dashboard_Main/>}></Route>
                 <Route path="accounts" element={<Accounts/>}></Route>
                 <Route path="admins" element={<Admins/>}></Route>
                 <Route path="requests" element={<Admins/>}></Route>
