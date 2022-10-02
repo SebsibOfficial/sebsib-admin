@@ -1,0 +1,12 @@
+.view_card {
+    max-width: 300px;
+    padding: 0.5em;
+    background-color: white;
+    border-radius: 10px;
+    outline: var(--primary) solid 2px;
+    margin: 0 1em 1em 0;
+}
+
+.view_card pre {
+    font-size: 0.6em;
+}

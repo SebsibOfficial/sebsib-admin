@@ -21,8 +21,11 @@ import { GetMemberList, GetProjectList, GetRecentResponseList, GetSurveyListByOr
 import { decodeJWT, validRoutes } from '../../utils/helpers';
 import './Dashboard.css';
 import Sb_Modal from '../../components/Sb_Modal/Sb_Modal';
+import Sb_Tiles from '../../components/Sb_Tiles/Sb_Tiles';
+import {Sb_RequestCard, RequestCard} from '../../components/Sb_RequestCard/Sb_RequestCard';
+import Sb_ViewCard from '../../components/Sb_ViewCard/Sb_ViewCard';
 
-export default function Dashboard () {
+export function Dashboard () {
   let location = useLocation();
   let navBack = useNavigate();
   const {notif} = useContext(NotifContext) as NotifContextInterface;
@@ -141,7 +144,25 @@ export default function Dashboard () {
     </>
   )
 }
-
-type MemberItem = { _id:string, name:string, defaultSelectValue?:"UNSELECTED" | "SELECTED"};
-type ProjectItem = {_id: string, name: string};
-type SurveyRow = {_id: string, project: string, survey: string, enumrator: string, date: string};
+var sample = {
+  "_id": "63398d6ef1fd8e13863e1b23",
+  "ownerId": "63398d6ef1fd8e13863e1b23",
+  "packageId": "63398d6ef1fd8e13863e1b23",
+  "enumratorId": "63398d6ef1fd8e13863e1b23",
+  "organizationId": "63398d6ef1fd8e13863e1b23",
+  "picture": "http://placehold.it/32x32",
+  "age": 22,
+  "eyeColor": "green",
+  "name": "Penny Knox",
+  "gender": "female"
+}
+var rq:RequestCard = {status: 'DECLINED', firstname: 'Abebe', lastname: 'Demeke', phone: '0998754334', email: 'yasgidbhk@asgh.as', package:'free', type: 'RENEWAL', organization: 'asd'}
+var ra:RequestCard = {bank:'cbe', transactionNo: '4576891320', firstname: 'Abebe', lastname: 'Demeke', phone: '0998754334', email: 'yasgidbhk@asgh.as', package:'free', type: 'REGISTER', organization: 'asd'}
+export function Dashboard_Main () {
+  return (
+    <div>
+      <Sb_ViewCard json={sample}/>
+      <Sb_ViewCard json={sample}/>
+    </div>
+  )
+}

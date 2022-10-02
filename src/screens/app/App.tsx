@@ -86,7 +86,11 @@ function App() {
                 <Route path="accounts" element={<Accounts/>}></Route>
                 <Route path="admins" element={<Admins/>}></Route>
                 <Route path="requests" element={<Admins/>}></Route>
-                <Route path="view" element={<View/>}></Route>
+                <Route path="view" element={<View/>}>
+                  <Route path=":collection" element={<View/>}>
+                    <Route path=":id" element={<View/>}></Route>
+                  </Route>
+                </Route>
               </Route>
               <Route path="*" element={<NotFound />} />
             </Route>
