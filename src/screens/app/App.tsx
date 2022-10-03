@@ -5,7 +5,7 @@ import {
   Routes,
   useOutletContext,
 } from "react-router-dom";
-import Add_Modify_Member from "../Add_Member/Add_Member";
+import Add_Modify_Account from "../Add_Account/Add_Account";
 import Create_Project from "../Create_Project/Create_Project";
 import Create_Survey from "../Create_Survey/Create_Survey";
 import {Dashboard, Dashboard_Main} from "../Dashboard/Dashboard";
@@ -28,9 +28,10 @@ import { useEffect, useState } from "react";
 import CryptoJS from "crypto-es";
 import { useTranslation } from "react-i18next";
 import NotFound from "../404/404";
-import Accounts from "../Accounts/Accounts";
+import {Accounts, Accounts_Landing} from "../Accounts/Accounts";
 import Admins from "../Admins/Admins";
 import View from "../View/View";
+import Requests from "../Requests/Requests";
 
 function App() {
   const [token, setAuthToken] = useLocalStorageState<string>("token");
@@ -83,9 +84,13 @@ function App() {
               <Route index element={<Login />} />
               <Route path="dashboard" element={<NotifProvider> <Dashboard /> </NotifProvider>}>
                 <Route index element={<Dashboard_Main/>}></Route>
-                <Route path="accounts" element={<Accounts/>}></Route>
+                <Route path="accounts" element={<Accounts_Landing/>}>
+                  <Route index element={<Accounts/>}></Route>
+                  <Route path="add" element={<Add_Modify_Account pageType="ADD"/>}></Route>
+                  <Route path="edit/:id" element={<Add_Modify_Account pageType="EDIT"/>}></Route>
+                </Route>
                 <Route path="admins" element={<Admins/>}></Route>
-                <Route path="requests" element={<Admins/>}></Route>
+                <Route path="requests" element={<Requests/>}></Route>
                 <Route path="view" element={<View/>}>
                   <Route path=":collection" element={<View/>}>
                     <Route path=":id" element={<View/>}></Route>

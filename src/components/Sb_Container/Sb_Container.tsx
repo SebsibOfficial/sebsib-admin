@@ -10,11 +10,11 @@ interface Props {
 }
 
 export default function Sb_Container(props: Props) {
-    var {borderDir = "VERTICAL", className = "p-2", color = "PURPLE"} = props;
+    var {className = "p-2", color = "PURPLE"} = props;
     var thickness = 'THICK';
     if (props.thin) thickness = 'THIN';
     return (
-        <div className={'sb-container ' + className +' '+ borderDir+'-'+thickness+' '+color}>
+        <div className={'sb-container ' + className +' '+ props.borderDir+'-'+thickness+' '+color}>
             {props.children}
         </div>
     );

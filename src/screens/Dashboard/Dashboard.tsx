@@ -156,13 +156,27 @@ var sample = {
   "name": "Penny Knox",
   "gender": "female"
 }
+var dash_sample = {
+  accountsCount: 25,
+  membersCount: 25,
+  projectsCount: 25,
+  surveysCount: 25,
+  adminsCount: 25,
+  responsesCount: 205,
+  expAccountsCount: 2
+}
 var rq:RequestCard = {status: 'DECLINED', firstname: 'Abebe', lastname: 'Demeke', phone: '0998754334', email: 'yasgidbhk@asgh.as', package:'free', type: 'RENEWAL', organization: 'asd'}
 var ra:RequestCard = {bank:'cbe', transactionNo: '4576891320', firstname: 'Abebe', lastname: 'Demeke', phone: '0998754334', email: 'yasgidbhk@asgh.as', package:'free', type: 'REGISTER', organization: 'asd'}
 export function Dashboard_Main () {
   return (
-    <div>
-      <Sb_ViewCard json={sample}/>
-      <Sb_ViewCard json={sample}/>
+    <div style={{'display':'flex', 'flexWrap':'wrap'}}>
+        <Sb_Tiles number={dash_sample.accountsCount} label="Accounts"/>
+        <Sb_Tiles number={dash_sample.membersCount} label="Members"/>
+        <Sb_Tiles number={dash_sample.projectsCount} label="Projects"/>
+        <Sb_Tiles number={dash_sample.surveysCount} label="Surveys"/>
+        <Sb_Tiles number={dash_sample.adminsCount} label="Admins"/>
+        <Sb_Tiles number={dash_sample.responsesCount} label="Responses"/>
+        <Sb_Tiles number={dash_sample.expAccountsCount} label="Expired Accounts"/>
     </div>
   )
 }

@@ -7,12 +7,12 @@
     font-family: 'HelveticaNeue';
     font-weight: bold;
     border-radius: 10px;
-    margin-right: 2em;
 }
 .tile_container {
     width: fit-content;
     text-align: center;
     max-width: 175px;
+    margin-right: 2em;
 }
 .tile_container p {
     font-family: 'HelveticaNeue';
