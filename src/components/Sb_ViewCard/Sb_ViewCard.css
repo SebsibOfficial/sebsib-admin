@@ -10,3 +10,17 @@
 .view_card pre {
     font-size: 0.6em;
 }
+
+::-webkit-scrollbar {
+    width: 20px !important;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: var(--lightGrey);
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: var(--primary);
+}

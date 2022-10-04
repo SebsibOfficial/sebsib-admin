@@ -55,7 +55,7 @@ const navData6: SideNavData = {
   id: 6,
   title: "Log Out",
   icon: faSignOutAlt,
-  path: "/login"
+  path: "/"
 };
 
 export const NavData = [
