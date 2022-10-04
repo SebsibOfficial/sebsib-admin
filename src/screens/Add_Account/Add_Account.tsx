@@ -1,36 +1,15 @@
 import { useContext, useEffect, useReducer, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import Sb_Alert from "../../components/Sb_ALert/Sb_Alert";
-import Sb_List from "../../components/Sb_List/Sb_List";
 import { actionType } from "../../components/Sb_List_Item/Sb_List_Item";
 import Sb_Loader from "../../components/Sb_Loader";
 import Sb_Text from "../../components/Sb_Text/Sb_Text";
 import { useAuth } from "../../states/AuthContext";
 import { NotifContext } from "../../states/NotifContext";
-import { AddMember, EditMember, GetMember, GetMemberList, GetProjectList } from "../../utils/api";
-import { decodeJWT } from "../../utils/helpers";
 
 interface Props {
   pageType: "ADD" | "EDIT"
 }
-
-class AddMemberPayload {
-  constructor (mn: string, me: string, mu: string, mp: string, pi: string[]){
-    this.memberName = mn;
-    this.email = me;
-    this.username = mu;
-    this.password = mp;
-    this.projectsId = pi;
-  }
-  memberName: string;
-  email: string;
-  username: string;
-  password: string;
-  projectsId: string[];
-}
-
-type ProjectItem = {_id: string, name: string, defaultSelectValue?:"UNSELECTED" | "SELECTED"};
 
 export default function Add_Modify_Account(props:Props) {
   let params = useParams();
@@ -49,24 +28,10 @@ export default function Add_Modify_Account(props:Props) {
   const [accountPackage, setPackage] = useState("");
   const [accountExpiry, setAccountExpiry] = useState("");
   const [projectsInvolved, setProjectsInvolved] = useState<string[]>([]);
-  const [projects, setProjects] = useState<ProjectItem[]>([]);
   const [pageLoading, setPageLoading] = useState(false);
   const [btnLoading, setBtnLoading] = useState(false);
-  const [projIn, setProj] = useState(false);
 
   /*------------- METHODS -------------- */
-  function projectSelectHandler (id: string, ac: actionType | undefined) {
-    if (ac === 'SELECTED'){
-      var pi = [...projectsInvolved];
-      pi.push(id);
-      setProjectsInvolved(pi);
-    }
-    else if (ac === 'UNSELECTED'){
-      var pi = [...projectsInvolved];
-      pi = pi.filter(projID => projID != id);
-      setProjectsInvolved(pi);
-    }
-  }
 
   function saveAddButtonHandler () {
     setBtnLoading(true);

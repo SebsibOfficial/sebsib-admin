@@ -24,12 +24,14 @@ const Sb_Side_Nav = (props: Props) => {
   
   function getParentRoute () {
     let routeArray = location.pathname.split("/");
-    if (routeArray.includes("members"))
-      return "Members";
-    else if (routeArray.includes("projects"))
-      return "Projects";
-    else if (routeArray.includes("settings"))
-      return "Settings";
+    if (routeArray.includes("accounts"))
+      return "Accounts";
+    else if (routeArray.includes("admins"))
+      return "Admins";
+    else if (routeArray.includes("request"))
+      return "Requests";
+    else if (routeArray.includes("view"))
+      return "View";
     else
       return "Dashboard";    
   }

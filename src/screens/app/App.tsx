@@ -6,14 +6,8 @@ import {
   useOutletContext,
 } from "react-router-dom";
 import Add_Modify_Account from "../Add_Account/Add_Account";
-import Create_Project from "../Create_Project/Create_Project";
-import Create_Survey from "../Create_Survey/Create_Survey";
 import {Dashboard, Dashboard_Main} from "../Dashboard/Dashboard";
 import Login from "../Login/Login";
-import Members, { Members_Landing } from "../Members/Members";
-import Projects, { Projects_Landing } from "../Projects/Projects";
-import Settings from "../Settings/Settings";
-import View_Survey from "../View_Survey/View_Survey";
 import { NotifProvider } from "../../states/NotifContext";
 import "./App.css";
 import axios from "axios";
@@ -21,9 +15,6 @@ import { AuthContext } from "../../states/AuthContext";
 import { CriticalContext } from "../../states/CriticalContext";
 import useLocalStorageState from "use-local-storage-state";
 import { decodeJWT } from "../../utils/helpers";
-import Landing from "../Landing/Landing";
-import Pricing from "../Landing/Pricing/Pricing";
-import Register from "../Landing/Register/Register";
 import { useEffect, useState } from "react";
 import CryptoJS from "crypto-es";
 import { useTranslation } from "react-i18next";

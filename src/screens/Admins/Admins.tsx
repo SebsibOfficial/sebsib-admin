@@ -7,18 +7,12 @@ import Sb_Text from "../../components/Sb_Text/Sb_Text";
 export default function Admins() {
 
 	/*############# STATES ############### */
-	const [accountName, setAccountName] = useState("");
 	const [adminEmail, setadminEmail] = useState("");
 	const [adminFirstName, setadminFirstName] = useState("");
 	const [adminLastName, setadminLastName] = useState("");
-	const [ownerPhone, setownerPhone] = useState("");
 	const [adminPassword, setadminPassword] = useState("");
-	const [accountPackage, setPackage] = useState("");
-	const [accountExpiry, setAccountExpiry] = useState("");
-	const [projectsInvolved, setProjectsInvolved] = useState<string[]>([]);
 	const [pageLoading, setPageLoading] = useState(false);
 	const [btnLoading, setBtnLoading] = useState(false);
-	const [projIn, setProj] = useState(false);
 
 	return (
 		pageLoading ? <Sb_Loader full /> :
