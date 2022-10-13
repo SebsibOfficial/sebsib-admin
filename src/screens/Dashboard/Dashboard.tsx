@@ -15,6 +15,7 @@ import './Dashboard.css';
 import Sb_Modal from '../../components/Sb_Modal/Sb_Modal';
 import Sb_Tiles from '../../components/Sb_Tiles/Sb_Tiles';
 import {Sb_RequestCard, RequestCard} from '../../components/Sb_RequestCard/Sb_RequestCard';
+import Sb_Loader from '../../components/Sb_Loader';
 
 export function Dashboard () {
   let location = useLocation();
@@ -23,6 +24,16 @@ export function Dashboard () {
   const {token, setAuthToken} = useAuth();
   const {page, setCriticalpage} = useCritical();
   const [modalState, setModalState] = useState(false);
+  
+  // Prevents routing from the URL
+  useEffect(() => {
+    if (!location.state){
+       return navBack("/404");
+    }
+    if (token == "") {
+      return navBack("/", {state: true});
+    }
+  },[location.state]);
   
   function capitalizeFirst (str:string):string {
     return str.match("^[a-z]") ? str.charAt(0).toUpperCase() + str.substring(1) : str;
@@ -159,8 +170,14 @@ var dash_sample = {
 var rq:RequestCard = {status: 'DECLINED', firstname: 'Abebe', lastname: 'Demeke', phone: '0998754334', email: 'yasgidbhk@asgh.as', package:'free', type: 'RENEWAL', organization: 'asd'}
 var ra:RequestCard = {bank:'cbe', transactionNo: '4576891320', firstname: 'Abebe', lastname: 'Demeke', phone: '0998754334', email: 'yasgidbhk@asgh.as', package:'free', type: 'REGISTER', organization: 'asd'}
 export function Dashboard_Main () {
+
+  const [pageLoading, setPageLoading] = useState<boolean>(false);
+
   return (
-    <div style={{'display':'flex', 'flexWrap':'wrap'}}>
+    <>
+    {
+      pageLoading ? <Sb_Loader full/> : 
+        <div style={{'display':'flex', 'flexWrap':'wrap'}}>
         <Sb_Tiles number={dash_sample.accountsCount} label="Accounts"/>
         <Sb_Tiles number={dash_sample.membersCount} label="Members"/>
         <Sb_Tiles number={dash_sample.projectsCount} label="Projects"/>
@@ -168,6 +185,8 @@ export function Dashboard_Main () {
         <Sb_Tiles number={dash_sample.adminsCount} label="Admins"/>
         <Sb_Tiles number={dash_sample.responsesCount} label="Responses"/>
         <Sb_Tiles number={dash_sample.expAccountsCount} label="Expired Accounts"/>
-    </div>
+      </div>
+    }
+    </>
   )
 }

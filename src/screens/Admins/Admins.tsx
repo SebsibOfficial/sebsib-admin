@@ -4,6 +4,11 @@ import Sb_Loader from "../../components/Sb_Loader";
 import Sb_Member_Card from "../../components/Sb_Member_Card/Sb_Member_Card";
 import Sb_Text from "../../components/Sb_Text/Sb_Text";
 
+interface Admin {
+  _id: string,
+  name: string
+}
+
 export default function Admins() {
 
 	/*############# STATES ############### */
@@ -13,6 +18,10 @@ export default function Admins() {
 	const [adminPassword, setadminPassword] = useState("");
 	const [pageLoading, setPageLoading] = useState(false);
 	const [btnLoading, setBtnLoading] = useState(false);
+  const [admins, setAdmins] = useState<Admin[]>([
+    { _id: "String", name: "Admin 1" },
+    { _id: "String", name: "Admin 2" }
+  ]);
 
 	return (
 		pageLoading ? <Sb_Loader full /> :
@@ -62,12 +71,13 @@ export default function Admins() {
 							</Col>
 						</Row>
 						<Row>
-							<Col>
-								<Sb_Member_Card id={"member._id"} name={"member.name"} onDelete={(id) => console.log("DELETE_ADMIN")} onClick={(id) => console.log("CLICK ADMIN")}/>
-							</Col>
-							<Col>
-								<Sb_Member_Card id={"member._id"} name={"member.name"} onDelete={(id) => console.log("DELETE_ADMIN")} onClick={(id) => console.log("CLICK ADMIN")}/>
-							</Col>
+              {
+                admins.map((admin:Admin) => (
+                  <Col>
+                    <Sb_Member_Card id={admin._id} name={admin.name} onDelete={(id) => console.log("DELETE_ADMIN")} onClick={(id) => console.log("CLICK ADMIN")}/>
+                  </Col>
+                ))
+              }
 						</Row>
 					</Col>
 				</Row>

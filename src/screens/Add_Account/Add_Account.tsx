@@ -24,7 +24,6 @@ export default function Add_Modify_Account(props:Props) {
   const [ownerFirstName, setownerFirstName] = useState("");
   const [ownerLastName, setownerLastName] = useState("");
   const [ownerPhone, setownerPhone] = useState("");
-  const [ownerPassword, setownerPassword] = useState("");
   const [accountPackage, setPackage] = useState("");
   const [accountExpiry, setAccountExpiry] = useState("");
   const [projectsInvolved, setProjectsInvolved] = useState<string[]>([]);
@@ -83,15 +82,6 @@ export default function Add_Modify_Account(props:Props) {
 						<Form.Label><Sb_Text font={16}>Expires On</Sb_Text></Form.Label>
 						<Form.Control size="sm" type="date" placeholder="DD-MM-YYYY" value={accountExpiry} onChange={(e) => setAccountExpiry(e.target.value)}/>
 					</Form.Group>
-          {
-            props.pageType === 'EDIT' ?
-            <Form.Group className="mb-3" controlId="AddMemberPassword">
-              <Form.Label><Sb_Text font={16}>Password</Sb_Text></Form.Label><br></br>
-              <Form.Label><Sb_Text weight={300} font={12}>Do not forget this password, Copy it if you can</Sb_Text></Form.Label>
-              <Form.Control size="sm" type="text" placeholder="Password" value={ownerPassword} onChange={(e) => setownerPassword(e.target.value)}/>
-					  </Form.Group> :
-            null
-          }
           {
             props.pageType === 'EDIT' ? <Button className="mt-3" size="sm" variant="light"><Sb_Text color="--DangerRed">Delete Account</Sb_Text></Button> : null
           }
