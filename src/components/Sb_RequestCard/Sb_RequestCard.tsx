@@ -4,23 +4,25 @@ import Dashen from '../../assets/dashen.jpg'
 import CBE from '../../assets/cbe.png'
 
 export interface RequestCard {
-    firstname: String,
-    lastname: String,
+    id:string,
+    firstname:string,
+    lastname:string,
     type: "RENEWAL" | "REGISTER",
-    email: String,
-    phone: String,
-    package: String,
-    organization: String
-    transactionNo?: String
-    bank?: String,
-    status?: "DECLINED" | "APPROVED"
+    email:string,
+    phone:string,
+    package:string,
+    organization:string,
+    longOrgId:string,
+    transactionNo?:string
+    bank?:string,
+    status?: "DECLINED" | "APPROVED" | "PENDING",
+    duration:string
 }
 
 interface Props {
-    id: String,
     data: RequestCard
-    onApprove : () => void
-    onDecline : () => void 
+    onApprove : (id:string) => void
+    onDecline : (id:string) => void 
 }
 
 export function Sb_RequestCard (props: Props) {
@@ -40,6 +42,7 @@ export function Sb_RequestCard (props: Props) {
                             <p>Email: {props.data.email}</p>
                             <p>Phone: {props.data.phone}</p>
                             <p>Package: {props.data.package}</p>
+                            <p>Duration: {props.data.duration == 'ONE_MONTH' ? "1 Month" : "1 Year"}</p>
                             <p>Organization: {props.data.organization}</p>
                             {   
                                 props.data.bank ? <p>Bank: {props.data.bank}</p> : null
@@ -66,14 +69,14 @@ export function Sb_RequestCard (props: Props) {
                                 </Button>) : null
                             }
                             {
-                                !props.data.status ? (
+                                props.data.status == 'PENDING' ? (
                                 <>
                                     <Button size='sm' variant='primary'
-                                    onClick={props.data.status == 'APPROVED' || props.data.status == 'DECLINED' ? () => null :() => props.onApprove()}>
+                                    onClick={props.data.status != 'PENDING' ? () => null :() => props.onApprove(props.data.id)}>
                                         Approve
                                     </Button>
                                     <Button size='sm' variant='secondary' 
-                                    onClick={props.data.status == 'APPROVED' || props.data.status == 'DECLINED' ?  () => null : () => props.onDecline()}>Decline</Button>
+                                    onClick={props.data.status != 'PENDING' ?  () => null : () => props.onDecline(props.data.id)}>Decline</Button>
                                 </>
                                 ) : null    
                             }
@@ -83,10 +86,10 @@ export function Sb_RequestCard (props: Props) {
                 </Col>
                 <Col style={{'display':'flex', 'justifyContent':'center'}}>
                     {   
-                        props.data.bank && props.data.bank == 'dashen' ? <img src={Dashen} style={{'width':'60px', 'height':'60px'}}/> : null
+                        props.data.bank && props.data.bank == 'DASHEN' ? <img src={Dashen} style={{'width':'60px', 'height':'60px'}}/> : null
                     } 
                     {   
-                        props.data.bank && props.data.bank == 'cbe' ? <img src={CBE} style={{'width':'60px', 'height':'60px'}}/> : null
+                        props.data.bank && props.data.bank == 'CBE' ? <img src={CBE} style={{'width':'60px', 'height':'60px'}}/> : null
                     }
                 </Col>
             </Row>

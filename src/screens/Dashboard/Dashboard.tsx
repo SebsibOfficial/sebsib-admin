@@ -16,6 +16,7 @@ import Sb_Modal from '../../components/Sb_Modal/Sb_Modal';
 import Sb_Tiles from '../../components/Sb_Tiles/Sb_Tiles';
 import {Sb_RequestCard, RequestCard} from '../../components/Sb_RequestCard/Sb_RequestCard';
 import Sb_Loader from '../../components/Sb_Loader';
+import { GetDashStat } from '../../utils/api';
 
 export function Dashboard () {
   let location = useLocation();
@@ -158,33 +159,51 @@ var sample = {
   "name": "Penny Knox",
   "gender": "female"
 }
-var dash_sample = {
-  accountsCount: 25,
-  membersCount: 25,
-  projectsCount: 25,
-  surveysCount: 25,
-  adminsCount: 25,
-  responsesCount: 205,
-  expAccountsCount: 2
-}
-var rq:RequestCard = {status: 'DECLINED', firstname: 'Abebe', lastname: 'Demeke', phone: '0998754334', email: 'yasgidbhk@asgh.as', package:'free', type: 'RENEWAL', organization: 'asd'}
-var ra:RequestCard = {bank:'cbe', transactionNo: '4576891320', firstname: 'Abebe', lastname: 'Demeke', phone: '0998754334', email: 'yasgidbhk@asgh.as', package:'free', type: 'REGISTER', organization: 'asd'}
-export function Dashboard_Main () {
 
-  const [pageLoading, setPageLoading] = useState<boolean>(false);
+interface DashboardI {
+  accountsCount: number,
+  membersCount: number,
+  projectsCount: number,
+  surveysCount: number,
+  adminsCount: number,
+  responseCount: number,
+  expAccountsCount: number
+}
+
+export function Dashboard_Main () {
+  const [pageLoading, setPageLoading] = useState<boolean>(true);
+  const [dashData, setDashData] = useState<DashboardI>({
+    accountsCount: 0,
+    membersCount: 0,
+    projectsCount: 0,
+    surveysCount: 0,
+    adminsCount: 0,
+    responseCount: 0,
+    expAccountsCount: 0
+  })
+
+  useEffect(() => {
+		GetDashStat().then(result => {
+      if (result.code == 200) {
+        setDashData(result.data);
+        setPageLoading(false)
+      }
+      else console.log(result)
+    })
+	}, [])
 
   return (
     <>
     {
       pageLoading ? <Sb_Loader full/> : 
         <div style={{'display':'flex', 'flexWrap':'wrap'}}>
-        <Sb_Tiles number={dash_sample.accountsCount} label="Accounts"/>
-        <Sb_Tiles number={dash_sample.membersCount} label="Members"/>
-        <Sb_Tiles number={dash_sample.projectsCount} label="Projects"/>
-        <Sb_Tiles number={dash_sample.surveysCount} label="Surveys"/>
-        <Sb_Tiles number={dash_sample.adminsCount} label="Admins"/>
-        <Sb_Tiles number={dash_sample.responsesCount} label="Responses"/>
-        <Sb_Tiles number={dash_sample.expAccountsCount} label="Expired Accounts"/>
+        <Sb_Tiles number={dashData.accountsCount} label="Accounts"/>
+        <Sb_Tiles number={dashData.membersCount} label="Members"/>
+        <Sb_Tiles number={dashData.projectsCount} label="Projects"/>
+        <Sb_Tiles number={dashData.surveysCount} label="Surveys"/>
+        <Sb_Tiles number={dashData.adminsCount} label="Admins"/>
+        <Sb_Tiles number={dashData.responseCount} label="Responses"/>
+        <Sb_Tiles number={dashData.expAccountsCount} label="Expired Accounts"/>
       </div>
     }
     </>

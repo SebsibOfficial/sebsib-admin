@@ -3,6 +3,10 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import Sb_Loader from "../../components/Sb_Loader";
 import Sb_Member_Card from "../../components/Sb_Member_Card/Sb_Member_Card";
 import Sb_Text from "../../components/Sb_Text/Sb_Text";
+import { useAuth } from "../../states/AuthContext";
+import { NotifContext } from "../../states/NotifContext";
+import { AddAdmin, DeleteAdmin, GetAdmins } from "../../utils/api";
+import { decodeJWT, translateIds } from "../../utils/helpers";
 
 interface Admin {
   _id: string,
@@ -10,19 +14,90 @@ interface Admin {
 }
 
 export default function Admins() {
-
+  const {token, setAuthToken} = useAuth();
+  const Notif = useContext(NotifContext);
 	/*############# STATES ############### */
 	const [adminEmail, setadminEmail] = useState("");
 	const [adminFirstName, setadminFirstName] = useState("");
 	const [adminLastName, setadminLastName] = useState("");
 	const [adminPassword, setadminPassword] = useState("");
+  const [adminRole, setAdminRole] = useState("ADMIN");
 	const [pageLoading, setPageLoading] = useState(false);
 	const [btnLoading, setBtnLoading] = useState(false);
   const [admins, setAdmins] = useState<Admin[]>([
-    { _id: "String", name: "Admin 1" },
-    { _id: "String", name: "Admin 2" }
+    // { _id: "String", name: "Admin 1" },
+    // { _id: "String", name: "Admin 2" }
   ]);
 
+  useEffect(() => {
+    GetAdmins().then(result => {
+      if (result.code == 200) {
+        var admins:Admin[] = [];
+        (result.data as []).forEach((admin:any) => {
+          admins.push({_id: admin._id, name: admin.firstName+' '+admin.lastName})
+        })
+        setAdmins(admins);
+      } else console.log(result.data)
+    }).catch((err) => console.log(err))
+  }, [])  
+
+  function clearform () {
+    setadminEmail("")
+    setadminFirstName("")
+    setadminLastName("")
+    setadminPassword("")
+    setAdminRole("ADMIN")
+  }
+
+  function deleteAdminHandler (id: string) {
+    if (id !== decodeJWT(token as string)._id){
+      DeleteAdmin(id).then(result => {
+        if (result.code == 200) {
+          Notif?.setNotification({type:"OK", message:"Admin Deleted", id:1})
+          GetAdmins().then(result => {
+            if (result.code == 200) {
+              var admins:Admin[] = [];
+              (result.data as []).forEach((admin:any) => {
+                admins.push({_id: admin._id, name: admin.firstName+' '+admin.lastName})
+              })
+              setAdmins(admins);
+            } else console.log(result.data)
+          }).catch((err) => console.log(err))
+        } else {
+          console.log(result.data);
+          Notif?.setNotification({type:"ERROR", message:result.data.message, code:result.code, id:1})
+        }
+      })
+    } else {
+      Notif?.setNotification({type:"ERROR", message:"Can't delete self", code:403, id:1})
+    }
+  }
+
+  function addAdminHandler () {
+    setBtnLoading(true)
+    console.log(">>", adminRole);
+    AddAdmin({adminFirstName: adminFirstName, adminLastName: adminLastName, adminEmail: adminEmail, password: adminPassword, roleId: translateIds('TEXT', adminRole)})
+    .then(result => {
+      if (result.code == 200) {
+        Notif?.setNotification({type:"OK", message:"Admin Created", id:1})
+        clearform()
+        GetAdmins().then(result => {
+          if (result.code == 200) {
+            var admins:Admin[] = [];
+            (result.data as []).forEach((admin:any) => {
+              admins.push({_id: admin._id, name: admin.firstName+' '+admin.lastName})
+            })
+            setAdmins(admins);
+          } else console.log(result.data)
+        }).catch((err) => console.log(err))
+        setBtnLoading(false)
+      } else {
+        console.log(result.data);
+        setBtnLoading(false)
+        Notif?.setNotification({type:"ERROR", message:result.data.message, code:result.code, id:1})
+      }
+    })
+  }
 	return (
 		pageLoading ? <Sb_Loader full /> :
 			<Col>
@@ -51,12 +126,12 @@ export default function Admins() {
 						</Form.Group>
 						<Form.Group className="mb-3" controlId="AddMemberPassword">
 							<Form.Label><Sb_Text font={16}>Role</Sb_Text></Form.Label><br></br>
-							<Form.Select size="sm" id="Select">
-								<option value={"free-trail"}>Admin</option>
-								<option value={"standard"}>Super Admin</option>
+							<Form.Select size="sm" id="Select" onChange={(e) => {setAdminRole(e.target.value);}}>
+								<option value={"ADMIN"}>Admin</option>
+								<option value={"SUPER"}>Super Admin</option>
 							</Form.Select>
 						</Form.Group>
-						<Button className="mt-3" size="sm" style={{ 'float': 'right' }} onClick={() => console.log("Add")}>
+						<Button className="mt-3" size="sm" style={{ 'float': 'right' }} onClick={() => addAdminHandler()}>
 							<Sb_Text font={12} color="--lightGrey">
 								{
 									btnLoading ? <Sb_Loader /> : <span>Add Admin</span>
@@ -73,8 +148,8 @@ export default function Admins() {
 						<Row>
               {
                 admins.map((admin:Admin) => (
-                  <Col>
-                    <Sb_Member_Card id={admin._id} name={admin.name} onDelete={(id) => console.log("DELETE_ADMIN")} onClick={(id) => console.log("CLICK ADMIN")}/>
+                  <Col key={admin._id}>
+                    <Sb_Member_Card id={admin._id} name={admin.name} onDelete={(id) => deleteAdminHandler(id)} onClick={(id) => console.log("CLICK ADMIN")}/>
                   </Col>
                 ))
               }

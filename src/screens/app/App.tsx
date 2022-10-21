@@ -23,6 +23,7 @@ import {Accounts, Accounts_Landing} from "../Accounts/Accounts";
 import Admins from "../Admins/Admins";
 import View from "../View/View";
 import Requests from "../Requests/Requests";
+import SingleView from "../View/SingleView";
 
 function App() {
   const [token, setAuthToken] = useLocalStorageState<string>("token");
@@ -83,8 +84,8 @@ function App() {
                 <Route path="admins" element={<Admins/>}></Route>
                 <Route path="requests" element={<Requests/>}></Route>
                 <Route path="view" element={<View/>}>
-                  <Route path=":collection" element={<View/>}>
-                    <Route path=":id" element={<View/>}></Route>
+                  <Route path=":collection" element={<SingleView/>}>
+                    <Route path=":id" element={<SingleView/>}></Route>
                   </Route>
                 </Route>
               </Route>

@@ -2,7 +2,7 @@ import './Sb_Tiles.css'
 
 interface Props {
     number: Number,
-    label: String
+    label:string
 }
 
 export default function Sb_Tiles(props:Props) {

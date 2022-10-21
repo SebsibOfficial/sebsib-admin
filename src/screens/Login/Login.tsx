@@ -38,29 +38,27 @@ export default function Login() {
   /*------------- METHODS -------------- */
   function loginHandler() {
     setBtnLoading(true);
-    setAuthToken("DummyToken" as string);
-    navigate('/dashboard', { state: true })
-    // Get Data here
-    // login(username, password)
-    //   .then((result: any) => {
-    //     if (result.code == 200) {
-    //       // Set token to state
-    //       var ac = localStorage.getItem('access_count');
-    //       localStorage.getItem('access_count') != null ?
-    //         localStorage.setItem('access_count', (parseInt(ac as string) + 1).toString()) :
-    //         localStorage.setItem('access_count', '1');
-    //       setAuthToken(result.data.token as string);
-    //       // Navigate
-    //       setTimeout(() => navigate('/dashboard', { state: true }), 50);
-    //     } else {
-    //       setErrnotice(result.data.message);
-    //     }
-    //     setBtnLoading(false);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     setBtnLoading(false);
-    //   })
+    //Get Data here
+    login(username, password)
+      .then((result: any) => {
+        if (result.code == 200) {
+          // Set token to state
+          var ac = localStorage.getItem('access_count');
+          localStorage.getItem('access_count') != null ?
+            localStorage.setItem('access_count', (parseInt(ac as string) + 1).toString()) :
+            localStorage.setItem('access_count', '1');
+          setAuthToken(result.data.token as string);
+          // Navigate
+          setTimeout(() => navigate('/dashboard', { state: true }), 50);
+        } else {
+          setErrnotice(result.data.message);
+        }
+        setBtnLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setBtnLoading(false);
+      })
   }
 
   return (

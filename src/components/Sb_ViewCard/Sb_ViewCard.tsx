@@ -34,7 +34,7 @@ export default function Sb_ViewCard (props: Props) {
         var json_input = input;
         for (const [key, value] of Object.entries(json_input)) {
         if (isValidObjectID(value) && getColl(key) != null)
-            json_input[key] = '<a href=dashboard/view/'+getColl(key)+'/63398d6ef1fd8e13863e1b23>63398d6ef1fd8e13863e1b23</a>'
+            json_input[key] = '<a id='+value+'>'+value+'</a>'
         }
         return json_input
     }
