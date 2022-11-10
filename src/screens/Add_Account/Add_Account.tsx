@@ -29,7 +29,7 @@ export default function Add_Modify_Account(props:Props) {
   const [ownerFirstName, setownerFirstName] = useState("");
   const [ownerLastName, setownerLastName] = useState("");
   const [ownerPhone, setownerPhone] = useState("");
-  const [accountPackage, setPackage] = useState("");
+  const [accountPackage, setPackage] = useState("FREE TRIAL");
   const [accountExpiry, setAccountExpiry] = useState("");
   const [modalState, setModalState] = useState<boolean>(false);
   const [pageLoading, setPageLoading] = useState(true);
