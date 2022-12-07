@@ -180,7 +180,7 @@ export default function Requests() {
       else if(reqObj.type == "RENEWAL") {
         // IF RENEWAL, EDIT ACCOUNT NEW DATE, PACKAGE
         var dt = new Date();
-        var formDate = dt.getFullYear()+'-'+dt.getMonth()+'-'+dt.getDay();
+        var formDate = dt.toISOString().replace(/T.*/,'');
         renewAccount(reqObj.longOrgId, reqObj.organization, reqObj.email, 
           reqObj.firstname, reqObj.lastname, reqObj.phone, 
           translateIds("TEXT", reqObj.package), 
