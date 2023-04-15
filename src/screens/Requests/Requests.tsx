@@ -202,6 +202,18 @@ export default function Requests() {
       }
     } else {
       // IF DECLINED
+      DecideRequest({descision: decision, requestId: id}).then((result) => {
+        if (result.code == 200) {
+          Notif?.setNotification({type:"OK", message:"Request Denied", id:1})
+          reloadRequests();
+        } else {
+          console.log(result.data)
+          Notif?.setNotification({type:"ERROR", message:result.data.message, id:1})
+          setBtnLoading(false)
+        } 
+      }).catch(err => {
+        console.log(err)
+      })
       reloadRequests()
       Notif?.setNotification({type:"OK", message:"Request Declined", id:1})
     }
